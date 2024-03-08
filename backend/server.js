@@ -1,40 +1,49 @@
-const express = require('express');
+const dotenv = require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const userRoute = require("./routes/userRoute");
+const errorHandler = require("./middleWare/errorMiddleware");
+const cookieParser = require("cookie-parser");
+const path = require("path");
+
 const app = express();
-const PORT = process.env.PORT || 3000; // Use port 3000 by default
-//database connection
-const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/testpfe', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log('Connected to MongoDB');
+// Middlewares
+app.use(express.json());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(
+    cors({
+        origin: ["http://localhost:3000"],
+        credentials: true,
     })
-    .catch((error) => {
-        console.error('Error connecting to MongoDB:', error);
-    });
-    const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
-    console.log('MongoDB connected successfully');
+);
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// Routes Middleware
+app.use("/api/users", userRoute);
+
+// Routes
+app.get("/", (req, res) => {
+    res.send("Home Page");
 });
 
-
-// paths
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-}); 
-app.get('/Login', (req, res) => {
-    res.send('Login page ');
-});
-app.get('/Signup', (req, res) => {
-    res.send('Signup page ');
-});
-app.get('/Request', (req, res) => {
-    res.send('Request page');
-}); 
-
-
-// Start the server
-//node server.js
+// Error Middleware
+app.use(errorHandler);
+// Connect to DB and start server
+const PORT = process.env.PORT || 5000;
+mongoose
+    .connect(
+        "ALOOO IHEBB 7OT STRING CONNECTION MTAA LATLAS LENA"
+    )
+    .then(() => {
+        console.log(`DataBase Connected`);
+    })
+    .catch((err) => console.log(err));
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server Running on port ${PORT}`);
 });
