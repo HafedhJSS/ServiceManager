@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const userRoute = require("./routes/userRoute");
+const contactRoute = require("./routes/contactRoute");
 const errorHandler = require("./middleWare/errorMiddleware");
 const cookieParser = require("cookie-parser");
 const path = require("path");
@@ -26,6 +27,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes Middleware
 app.use("/api/users", userRoute);
+app.use("/api/contactus", contactRoute);
 
 // Routes
 app.get("/", (req, res) => {
@@ -38,7 +40,7 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 mongoose
     .connect(
-        "ALOOO IHEBB 7OT STRING CONNECTION MTAA LATLAS LENA"
+        "mongodb+srv://Iheb:HqSoJK0T1J6vZXSd@cluster0.2txfsvo.mongodb.net/?retryWrites=true&w=majority"
     )
     .then(() => {
         console.log(`DataBase Connected`);
