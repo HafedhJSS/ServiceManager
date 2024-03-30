@@ -8,9 +8,11 @@ const contactRoute = require("./routes/contactRoute");
 const errorHandler = require("./middleWare/errorMiddleware");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const requestController = require("./controllers/requestController");
 
 const app = express();
 
+const { request } = require("http");
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
@@ -33,7 +35,11 @@ app.use("/api/contactus", contactRoute);
 app.get("/", (req, res) => {
     res.send("Home Page");
 });
-
+app.get("/request",requestController.fetchRequests )
+app.get("/request/:id",requestController.fetchRequest )
+app.post("/request",requestController.createRequest)
+app.put("/request/:id", requestController.updateRequest)
+app.delete("/request/:id" , requestController.deleteRequest)
 // Error Middleware
 app.use(errorHandler);
 // Connect to DB and start server
