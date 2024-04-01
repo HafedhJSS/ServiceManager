@@ -21,7 +21,7 @@ const requestSchema = mongoose.Schema({
     type:{
         type:String,
         enum:['VPN','VM','AccessPoint'],
-        //default:'VM'
+        default:'VM'
     }
   });
   const request = mongoose.model("request",requestSchema);

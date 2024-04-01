@@ -18,6 +18,7 @@ import Profile from "./pages/profile/Profile";
 import EditProfile from "./pages/profile/EditProfile";
 import Contact from "./pages/contact/Contact";
 import Users from "./pages/users/Users";
+import RequestEditor from "./pages/requestEditor/requestEditor";
 
 axios.defaults.withCredentials = true;
 
@@ -41,6 +42,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/resetpassword/:resetToken" element={<Reset />} />
+        <Route path="/requestEditor" element={<RequestEditor />}/>
 
         <Route
           path="/dashboard"
