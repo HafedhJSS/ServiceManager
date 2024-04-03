@@ -4,7 +4,8 @@ const Request = require ("../models/Request");
 const fetchRequests = async(req,res) => {
     //find the requests
     const requests = await Request.find();
-    res.json({request:requests});
+    // repond with them
+    res.json({requests});
 }
 
 const fetchRequest = async (req,res)=>{

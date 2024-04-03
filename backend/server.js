@@ -35,7 +35,7 @@ app.use("/api/contactus", contactRoute);
 app.get("/", (req, res) => {
     res.send("Home Page");
 });
-app.get("/request",requestController.fetchRequests )
+app.get("/requests",requestController.fetchRequests )
 app.get("/request/:id",requestController.fetchRequest )
 app.post("/request",requestController.createRequest)
 app.put("/request/:id", requestController.updateRequest)
