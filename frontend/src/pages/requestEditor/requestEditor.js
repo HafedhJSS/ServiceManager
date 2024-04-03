@@ -127,7 +127,14 @@ console.log(res);
           requests.map((request) => {
             return (
               <div key={request._id}>
+                <h3>userID: </h3>
                 <h3>{request.userId}</h3>
+                <h3>status:</h3>
+                <h3>{request.status}</h3>
+                <h3>date de creation:</h3>
+                <h3>{request.creationDate}</h3>
+                <h3>type:</h3>
+                <h3>{request.type}</h3>
                 <button onClick={() => deleteRequest(request._id)}>
                   Delete note
                 </button>
