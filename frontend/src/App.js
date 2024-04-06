@@ -19,6 +19,7 @@ import EditProfile from "./pages/profile/EditProfile";
 import Contact from "./pages/contact/Contact";
 import Users from "./pages/users/Users";
 import RequestEditor from "./pages/requestEditor/requestEditor";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 axios.defaults.withCredentials = true;
 
