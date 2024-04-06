@@ -117,34 +117,11 @@ console.log(res);
               <option value="VPN">VPN</option>
               <option value="VM">VM</option>
               <option value="AccessPoint">AccessPoint</option>
-            </select>*/
+            </select>
+            
+            <button onClick={() => toggleUpdate(request)}>Update Request</button>
 
-  return (
-    <div className="App">
-      <div>
-        <h2>Requests:</h2>
-        {requests &&
-          requests.map((request) => {
-            return (
-              <div key={request._id}>
-                <h3>userID: </h3>
-                <h3>{request.userId}</h3>
-                <h3>status:</h3>
-                <h3>{request.status}</h3>
-                <h3>date de creation:</h3>
-                <h3>{request.creationDate}</h3>
-                <h3>type:</h3>
-                <h3>{request.type}</h3>
-                <button onClick={() => deleteRequest(request._id)}>
-                  Delete note
-                </button>
-                <button onClick={() => toggleUpdate(request)}>Update Request</button>
-              </div>
-            );
-          })}
-      </div>
-
-      {updateForm._id && (
+            {updateForm._id && (
         <div>
           <h2>Update request</h2>
           <form onSubmit={updateRequest}>
@@ -180,8 +157,59 @@ console.log(res);
             
             <button type="submit">Create request</button>
           </form>
-        </div>
-      )}
+        </div>)}
+            <td>key={request._id}</td>
+            */
+
+  return (
+    <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
+      <div className="w-50 bg-white rounded p-3">
+        <h2>Requests:</h2>
+        <table className="table">
+        <tr><th><h3>userID: </h3>
+                    </th>
+                    <th>
+                    <h3>status: </h3>
+                    </th>
+                    <th><h3>date de creation: </h3>
+                    </th>
+                    <th><h3>type: </h3></th>
+                    </tr>
+                    </table>
+        {requests &&
+          requests.map((request) => {
+            return (
+              <div >
+                
+                   
+
+                
+                <td>{request.userId}</td>
+                <td>{request.status} 
+                <select >
+              <option value="notChecked">notChecked</option>
+              <option value="Accepted">Accepted</option>
+              <option value="Work in progress">Work in progress</option>
+              <option value="completed">completed</option>
+            </select></td>
+                <td>{request.creationDate}</td>
+                <td>{request.type}</td>
+
+             
+            <td>  <button className="btn btn-danger" onClick={() => deleteRequest(request._id)}>
+                  Delete
+                </button></td>
+         
+              
+              </div>
+              
+            );
+          })}
+          
+      </div>
+
+      
+      
     </div>
   );
 /*  function CreateRequest(){
