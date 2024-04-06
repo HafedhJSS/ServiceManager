@@ -10,8 +10,8 @@ const requestSchema = mongoose.Schema({
       ref: "user",
     },
     creationDate: {
-      type: Date,
-      default: new Date()// Set the default value to today's date
+      type: String,
+      default: new Date().toLocaleDateString([],{ year: 'numeric', month: 'long', day: 'numeric' })// Set the default value to today's date
   },
     status: {
         type: String,
