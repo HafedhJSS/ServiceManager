@@ -3,7 +3,7 @@ const Request = require ("../models/Request");
 
 const fetchRequests = async(req,res) => {
     //find the requests
-    const requests = await Request.find().sort();
+    const requests = await Request.find().sort('creationDate');
     // repond with them
     res.json({requests});
 }
