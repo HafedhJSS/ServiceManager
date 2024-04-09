@@ -5,12 +5,6 @@ import axios from "axios";
 function RequestEditor() {
   // State
   const [requests, setRequests] = useState(null);
-  /*const [createForm, setCreateForm] = useState({
-    userId: "888",
-    creationDate: "",
-    status:"",
-    type:""
-  });*/
   const [updateForm, setUpdateForm] = useState({
     _id:null,
     userId: "",

@@ -20,7 +20,7 @@ import Contact from "./pages/contact/Contact";
 import Users from "./pages/users/Users";
 import RequestEditor from "./pages/requestEditor/requestEditor";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import CreateRequest from "./pages/createRequest/createRequest";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
     }
     loginStatus();
   }, [dispatch]);
-
+// 
   return (
     <BrowserRouter>
       <ToastContainer />
@@ -44,7 +44,7 @@ function App() {
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/resetpassword/:resetToken" element={<Reset />} />
         <Route path="/requestEditor" element={<RequestEditor />}/>
-
+        <Route path="/createRequest" element={<CreateRequest/>}/>
         <Route
           path="/dashboard"
           element={
