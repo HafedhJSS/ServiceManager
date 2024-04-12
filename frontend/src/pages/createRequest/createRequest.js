@@ -17,6 +17,14 @@ return(
   <form onSubmit={submit}>
     <h3>User id</h3>
     <input type="text" name="userId" onChange={(e)=>setUserId(e.target.value)}></input>
+    <select
+                      
+                      onChange={(e) => setType(e.target.value)}
+                    >
+                      <option value="VPN">VPN</option>
+                      <option value="VM">VM</option>
+                      <option value="AccessPoint">AccessPoint</option>
+                    </select>
     <button>submit</button>
   </form>
 </div>)
