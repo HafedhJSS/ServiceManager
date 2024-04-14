@@ -19,7 +19,6 @@ import EditProfile from "./pages/profile/EditProfile";
 import Contact from "./pages/contact/Contact";
 import Users from "./pages/users/Users";
 import RequestEditor from "./pages/requestEditor/requestEditor";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import CreateRequest from "./pages/createRequest/createRequest";
 axios.defaults.withCredentials = true;
 
@@ -33,7 +32,7 @@ function App() {
     }
     loginStatus();
   }, [dispatch]);
-// 
+  //
   return (
     <BrowserRouter>
       <ToastContainer />
@@ -43,8 +42,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/resetpassword/:resetToken" element={<Reset />} />
-        <Route path="/requestEditor" element={<RequestEditor />}/>
-        <Route path="/createRequest" element={<CreateRequest/>}/>
+
         <Route
           path="/dashboard"
           element={
@@ -55,7 +53,26 @@ function App() {
             </Sidebar>
           }
         />
-
+        <Route
+          path="/createRequest"
+          element={
+            <Sidebar>
+              <Layout>
+                <CreateRequest />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/requestEditor"
+          element={
+            <Sidebar>
+              <Layout>
+                <RequestEditor />
+              </Layout>
+            </Sidebar>
+          }
+        />
         <Route
           path="/profile"
           element={
