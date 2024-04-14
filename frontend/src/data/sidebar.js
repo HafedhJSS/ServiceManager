@@ -1,6 +1,6 @@
 import { FaTh, FaRegChartBar, FaCommentAlt, FaUsers } from "react-icons/fa";
 import { BiImageAdd } from "react-icons/bi";
-
+import { FaCodePullRequest } from "react-icons/fa6";
 export const superAdmin_menu = [
   {
     title: "Dashboard",
@@ -8,9 +8,9 @@ export const superAdmin_menu = [
     path: "/dashboard",
   },
   {
-    title: "Add Product",
+    title: "Create Requests",
     icon: <BiImageAdd />,
-    path: "/add-product",
+    path: "/createRequest",
   },
   {
     title: "Users",
@@ -45,9 +45,14 @@ export const admin_menu = [
     path: "/dashboard",
   },
   {
-    title: "Add Service",
+    title: "Create Requests",
     icon: <BiImageAdd />,
-    path: "/add-product",
+    path: "/createRequest",
+  },
+  {
+    title: "Edit Requests",
+    icon: <FaCodePullRequest />,
+    path: "/requestEditor",
   },
   {
     title: "Account",

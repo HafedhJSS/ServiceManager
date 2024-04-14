@@ -1,33 +1,48 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import useRedirectLoggedOutUser from "../../customHook/useRedirectLoggedOutUser";
+import { selectIsLoggedIn } from "../../redux/features/auth/authSlice";
 
-  function CreateRequest(){
-const [userId, setUserId]=useState();
-const [creationDate,setCreationDate]=useState();
-const [status,setStatus]=useState();
-const [type,setType]=useState();
-const submit = async (e) =>{
-  e.preventDefault();
-  await axios.post("http://localhost:5000/request",{userId,creationDate,status,type})
-  .then(result => console.log(result))
-  .catch(err => console.log(err)) 
-}
-return(
-<div> 
-  <form onSubmit={submit}>
-    <h3>User id</h3>
-    <input type="text" name="userId" onChange={(e)=>setUserId(e.target.value)}></input>
-    <select
-                      
-                      onChange={(e) => setType(e.target.value)}
-                    >
-                      <option value="VPN">VPN</option>
-                      <option value="VM">VM</option>
-                      <option value="AccessPoint">AccessPoint</option>
-                    </select>
-    <button>submit</button>
-  </form>
-</div>)
+function CreateRequest() {
+  useRedirectLoggedOutUser("/login");
+  const dispatch = useDispatch();
+
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const [userId, setUserId] = useState();
+  const [creationDate, setCreationDate] = useState();
+  const [status, setStatus] = useState();
+  const [type, setType] = useState();
+  const submit = async (e) => {
+    e.preventDefault();
+    await axios
+      .post("http://localhost:5000/request", {
+        userId,
+        creationDate,
+        status,
+        type,
+      })
+      .then((result) => console.log(result))
+      .catch((err) => console.log(err));
+  };
+  return (
+    <div>
+      <form onSubmit={submit}>
+        <h3>User id</h3>
+        <input
+          type="text"
+          name="userId"
+          onChange={(e) => setUserId(e.target.value)}
+        ></input>
+        <select onChange={(e) => setType(e.target.value)}>
+          <option value="VPN">VPN</option>
+          <option value="VM">VM</option>
+          <option value="AccessPoint">AccessPoint</option>
+        </select>
+        <button>submit</button>
+      </form>
+    </div>
+  );
 }
 
 export default CreateRequest;
