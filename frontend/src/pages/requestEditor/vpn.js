@@ -3,9 +3,8 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import useRedirectLoggedOutUser from "../../customHook/useRedirectLoggedOutUser";
 import { selectIsLoggedIn } from "../../redux/features/auth/authSlice";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-function RequestEditor() {
+function RequestEditorVpn() {
   useRedirectLoggedOutUser("/login");
   const dispatch = useDispatch();
 
@@ -17,16 +16,10 @@ function RequestEditor() {
   }, []);
 
   const fetchRequests = async () => {
-    const res = await axios.get("http://localhost:5000/requests");
+    const res = await axios.get("http://localhost:5000/requests/vpn");
     setRequests(res.data.requests);
   };
 
-  const deleteRequest = async (_id) => {
-    await axios.delete(`http://localhost:5000/request/${_id}`);
-    setRequests((prevRequests) =>
-      prevRequests.filter((request) => request._id !== _id)
-    );
-  };
 
   const updateRequestStatus = async (e, requestId) => {
     const newStatus = e.target.value;
@@ -44,8 +37,8 @@ function RequestEditor() {
   return (
     <div>
       <div>
-        <h2>All Requests:</h2>
-        <table >
+        <h2> VPN Requests:</h2>
+        <table>
           <thead>
             <tr>
               <th>userID</th>
@@ -74,9 +67,8 @@ function RequestEditor() {
                   <td>{request.creationDate.substring(0, 10)}</td>
                   <td>{request.type}</td>
                   <td>
-                    <button
-                      className="btn btn-danger"  
-                      onClick={() => {if(window.confirm('Delete the item?'))deleteRequest(request._id)}}>
+                  <button
+                      className="btn btn-dark" disabled>
                       Delete
                     </button>
                   </td>
@@ -89,4 +81,4 @@ function RequestEditor() {
   );
 }
 
-export default RequestEditor;
+export default RequestEditorVpn;

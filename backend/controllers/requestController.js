@@ -8,6 +8,27 @@ const fetchRequests = async(req,res) => {
     res.json({requests});
 }
 
+const fetchRequestsVpn = async(req,res) => {
+    //find the requests
+    const requests = await Request.find({ type: "VPN" }).sort({ creationDate: -1 });
+    // repond with them
+    res.json({requests});
+}
+
+const fetchRequestsVm = async(req,res) => {
+    //find the requests
+    const requests = await Request.find({ type: "VM" }).sort({ creationDate: -1 });
+    // repond with them
+    res.json({requests});
+}
+
+const fetchRequestsAp = async(req,res) => {
+    //find the requests
+    const requests = await Request.find({ type: "AccessPoint" }).sort({ creationDate: -1 });
+    // repond with them
+    res.json({requests});
+}
+
 const fetchRequest = async (req,res)=>{
     //get id from the url
     const reqId = req.params.id;
@@ -62,6 +83,9 @@ const deleteRequest = async (req,res)=>{
 module.exports ={
     fetchRequest,
     fetchRequests,
+    fetchRequestsVpn,
+    fetchRequestsVm,
+    fetchRequestsAp,
     createRequest,
     updateRequest,
     deleteRequest,

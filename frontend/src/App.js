@@ -21,6 +21,10 @@ import Users from "./pages/users/Users";
 import RequestEditor from "./pages/requestEditor/requestEditor";
 import CreateRequest from "./pages/createRequest/createRequest";
 import "./App.css"
+import RequestEditorVpn from "./pages/requestEditor/vpn";
+import RequestEditorVm from "./pages/requestEditor/vm";
+import RequestEditorAp from "./pages/requestEditor/ap";
+
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -70,6 +74,36 @@ function App() {
             <Sidebar>
               <Layout>
                 <RequestEditor />
+              </Layout>
+            </Sidebar>
+          }
+        />
+                <Route
+          path="/requestEditor/vpn"
+          element={
+            <Sidebar>
+              <Layout>
+                <RequestEditorVpn />
+              </Layout>
+            </Sidebar>
+          }
+        />
+                <Route
+          path="/requestEditor/vm"
+          element={
+            <Sidebar>
+              <Layout>
+                <RequestEditorVm />
+              </Layout>
+            </Sidebar>
+          }
+        />
+                <Route
+          path="/requestEditor/ap"
+          element={
+            <Sidebar>
+              <Layout>
+                <RequestEditorAp />
               </Layout>
             </Sidebar>
           }

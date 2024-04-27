@@ -37,6 +37,9 @@ app.get("/", (req, res) => {
 });
 app.get("/requests",requestController.fetchRequests )
 app.get("/request/:id",requestController.fetchRequest )
+app.get("/requests/vpn",requestController.fetchRequestsVpn )
+app.get("/requests/vm",requestController.fetchRequestsVm )
+app.get("/requests/ap",requestController.fetchRequestsAp )
 app.post("/request",requestController.createRequest)
 app.put("/request/:id", requestController.updateRequest)
 app.delete("/request/:id" , requestController.deleteRequest)
