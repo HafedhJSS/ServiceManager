@@ -20,6 +20,7 @@ import Contact from "./pages/contact/Contact";
 import Users from "./pages/users/Users";
 import RequestEditor from "./pages/requestEditor/requestEditor";
 import CreateRequest from "./pages/createRequest/createRequest";
+import "./App.css"
 axios.defaults.withCredentials = true;
 
 function App() {

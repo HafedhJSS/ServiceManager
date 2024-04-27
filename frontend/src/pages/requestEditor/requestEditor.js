@@ -70,13 +70,12 @@ function RequestEditor() {
                       <option value="validated">Validated</option>
                     </select>
                   </td>
-                  <td>{request.creationDate}</td>
+                  <td>{request.creationDate.substring(0, 10)}</td>
                   <td>{request.type}</td>
                   <td>
                     <button
                       className="btn btn-danger"
-                      onClick={() => deleteRequest(request._id)}
-                    >
+                      onClick={() => {if(window.confirm('Delete the item?'))deleteRequest(request._id)}}>
                       Delete
                     </button>
                   </td>

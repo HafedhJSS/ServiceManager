@@ -10,8 +10,8 @@ const requestSchema = mongoose.Schema({
       ref: "user",
     },
     creationDate: {
-      type: String,
-      default: new Date().toLocaleDateString([],{ year: 'numeric', month: 'long', day: 'numeric' })// Set the default value to today's date
+      type: Date,
+      default: new Date()// Set the default value to today's date
   },
     status: {
         type: String,
@@ -21,7 +21,7 @@ const requestSchema = mongoose.Schema({
     type:{
         type:String,
         enum:['VPN','VM','AccessPoint'],
-        default:'VM'
+        default:'VPN' //WARNING : DO NOT REMOVE : frontend has onchange in select so this value won't be taken if the user doensn't change the select option
     }
   });
   const request = mongoose.model("request",requestSchema);
