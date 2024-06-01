@@ -5,32 +5,41 @@ import "./Home.scss";
 const heroImg = process.env.PUBLIC_URL + "/inv-img.png";
 
 const Home = () => {
+  const token = localStorage.getItem("token");
   return (
     <div className="home">
       <nav className="container --flex-between ">
         <div className="logo">
           <DiTechcrunch size={35} />{" "}
         </div>{" "}
-        <ul className="home-links">
-          <li>
-            <button className="--btn --btn-primary">
-              <Link to="/register"> Register </Link>{" "}
-            </button>{" "}
-          </li>{" "}
-          <li>
-            <button className="--btn --btn-primary">
-              <Link to="/login"> Login </Link>{" "}
-            </button>{" "}
-          </li>{" "}
-        </ul>{" "}
+        {token ? (
+          <ul className="home-links">
+            <li>
+              <button className="--btn --btn-primary">
+                <Link to="/dashboard"> Dashboard </Link>{" "}
+              </button>
+            </li>
+          </ul>
+        ) : (
+          <ul className="home-links">
+            <li>
+              <button className="--btn --btn-primary">
+                <Link to="/register"> Register </Link>{" "}
+              </button>
+            </li>
+            <li>
+              <button className="--btn --btn-primary">
+                <Link to="/login"> Login </Link>{" "}
+              </button>{" "}
+            </li>{" "}
+          </ul>
+        )}
       </nav>{" "}
       {/* HERO SECTION */}{" "}
       <section className="container hero">
         <div className="hero-text">
           <h2> Tunisie Telecom Services Manager Solution </h2>{" "}
-          <p>
-            If you are looking for any IT services, Well you got us.{" "}
-          </p>{" "}
+          <p>If you are looking for any IT services, Well you got us. </p>{" "}
         </div>{" "}
         <div className="hero-image">
           <img src={heroImg} alt="Inventory" />

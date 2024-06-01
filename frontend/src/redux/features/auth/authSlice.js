@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const name = JSON.parse(localStorage.getItem("name"));
-const role = JSON.parse(localStorage.getItem("role"));
+const name = localStorage.getItem("name");
+const role = localStorage.getItem("role");
 
 const initialState = {
   isLoggedIn: false,
@@ -24,10 +24,14 @@ const authSlice = createSlice({
       state.isLoggedIn = action.payload;
     },
     SET_NAME(state, action) {
-      console.log(action.payload);
+      localStorage.setItem("name", action.payload.name);
+      localStorage.setItem("role", action.payload.role);
+      localStorage.setItem("_id", action.payload._id);
+      localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("email", action.payload.email);
+      localStorage.setItem("photo", action.payload.photo);
+      localStorage.setItem("bio", action.payload.bio);
 
-      localStorage.setItem("name", JSON.stringify(action.payload.name));
-      localStorage.setItem("role", JSON.stringify(action.payload.role));
       state.name = action.payload.name;
       state.role = action.payload.role;
     },
@@ -49,4 +53,5 @@ export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 export const selectName = (state) => state.auth.name;
 export const selectUser = (state) => state.auth.user;
 export const selectRole = (state) => state.auth.role;
+export const selectUserData = (state) => state.auth;
 export default authSlice.reducer;
