@@ -3,7 +3,7 @@ const Request = require ("../models/Request");
 
 const fetchRequests = async(req,res) => {
     //find the requests
-    const requests = await Request.find().sort('creationDate');
+    const requests = await Request.find().sort('creationDate').populate("userId");
     // repond with them
     res.json({requests});
 }
@@ -54,7 +54,7 @@ const deleteRequest = async (req,res)=>{
     //get the id from the link 
     const reqId = req.params.id;
     // delete
-    await Request.deleteOne({id:reqId});
+    await Request.deleteOne({_id:reqId});
     //respond 
     res.json({success: "Request deleted"});
 }

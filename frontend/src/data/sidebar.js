@@ -13,6 +13,11 @@ export const superAdmin_menu = [
     path: "/createRequest",
   },
   {
+    title: "Edit Requests",
+    icon: <FaCodePullRequest />,
+    path: "/requestEditor",
+  },
+  {
     title: "Users",
     icon: <FaUsers />,
     path: "/users",
@@ -49,11 +54,7 @@ export const admin_menu = [
     icon: <BiImageAdd />,
     path: "/createRequest",
   },
-  {
-    title: "Edit Requests",
-    icon: <FaCodePullRequest />,
-    path: "/requestEditor",
-  },
+
   {
     title: "Account",
     icon: <FaRegChartBar />,

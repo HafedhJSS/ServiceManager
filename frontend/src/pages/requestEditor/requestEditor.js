@@ -36,6 +36,7 @@ function RequestEditor() {
   };
 
   const deleteRequest = async (_id) => {
+    console.log(_id);
     await axios.delete(`http://localhost:5000/request/${_id}`);
     setRequests((prevRequests) =>
       prevRequests.filter((request) => request._id !== _id)
@@ -59,17 +60,17 @@ function RequestEditor() {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
 
-    // setCurrentItems(filteredProducts.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(3 / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
+    setCurrentItems(requests.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(requests.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, requests]);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % 5;
+    const newOffset = (event.selected * itemsPerPage) % requests.length;
     setItemOffset(newOffset);
   };
   //   End Pagination
@@ -92,15 +93,15 @@ function RequestEditor() {
               </Tr>
             </Thead>
             <Tbody>
-              {requests.length > 0 &&
-                requests.map((el) => {
+              {currentItems.length > 0 &&
+                currentItems.map((el) => {
                   return (
                     <Tr>
                       <Td color={"black"} fontSize={14}>
-                        <p> {el.userId.name}</p>
+                        <p> {el.userId ? el.userId.name : "test" + el._id}</p>
                       </Td>
                       <Td color={"black"} fontSize={14}>
-                        <p> {el.userId.email}</p>
+                        <p> {el.userId ? el.userId.email : "test 1"}</p>
                       </Td>
                       <Td>
                         <Select
@@ -176,6 +177,20 @@ function RequestEditor() {
             nextLinkClassName="page-num"
             activeLinkClassName="activePage"
           />
+          {/* <ReactPaginate
+          breakLabel="..."
+          nextLabel="Next"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          pageCount={pageCount}
+          previousLabel="Prev"
+          renderOnZeroPageCount={null}
+          containerClassName="pagination"
+          pageLinkClassName="page-num"
+          previousLinkClassName="page-num"
+          nextLinkClassName="page-num"
+          activeLinkClassName="activePage"
+        /> */}
         </TableContainer>
       </div>
     </div>

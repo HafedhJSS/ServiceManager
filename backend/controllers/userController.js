@@ -13,7 +13,7 @@ const generateToken = (id) => {
 
 // Register User
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, bio, phone, role } = req.body;
 
   // Validation
   if (!name || !email || !password) {
@@ -38,19 +38,15 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password,
+    bio,
+    phone,
+    role,
   });
 
   //   Generate Token
   const token = generateToken(user._id);
 
   // Send HTTP-only cookie
-  res.cookie("token", token, {
-    path: "/",
-    httpOnly: true,
-    expires: new Date(Date.now() + 1000 * 86400), // 1 day
-    sameSite: "none",
-    secure: true,
-  });
 
   if (user) {
     const { _id, name, email, photo, phone, bio } = user;
@@ -138,7 +134,7 @@ const getUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
-    const { _id, name, email, photo, phone, bio , role } = user;
+    const { _id, name, email, photo, phone, bio, role } = user;
     res.status(200).json({
       _id,
       name,
@@ -315,11 +311,23 @@ const resetPassword = asyncHandler(async (req, res) => {
 });
 
 const getUsers = async (req, res) => {
-  const users = await User.find();
+  const users = await User.find({
+    role: { $ne: "Super-Admin" },
+    available: true,
+  });
   console.log(users);
   res.status(200).json({ message: "ok", data: users });
 };
 
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findByIdAndUpdate(
+    id,
+    { available: false },
+    { new: true }
+  );
+  res.status(200).json({ message: "OK", user: user });
+};
 module.exports = {
   registerUser,
   loginUser,
@@ -330,5 +338,6 @@ module.exports = {
   changePassword,
   forgotPassword,
   resetPassword,
+  deleteUser,
   getUsers,
 };

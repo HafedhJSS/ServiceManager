@@ -20,6 +20,7 @@ import Contact from "./pages/contact/Contact";
 import Users from "./pages/users/Users";
 import RequestEditor from "./pages/requestEditor/requestEditor";
 import CreateRequest from "./pages/createRequest/createRequest";
+import CreateUser from "./components/CreateUser/CreateUser";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -109,6 +110,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <Users />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/users/createUser"
+          element={
+            <Sidebar>
+              <Layout>
+                <CreateUser />
               </Layout>
             </Sidebar>
           }
