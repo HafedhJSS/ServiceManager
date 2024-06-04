@@ -18,7 +18,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import ReactPaginate from "react-paginate";
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 function RequestEditor() {
   useRedirectLoggedOutUser("/login");
