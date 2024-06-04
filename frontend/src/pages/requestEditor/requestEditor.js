@@ -138,19 +138,20 @@ function RequestEditor() {
                         </Select>
                       </Td>
                       <Td fontSize={14} color={"black"} isNumeric>
-                        <p> {el.creationDate}</p>
+                        <p> {el.creationDate.substring(0, 10)}</p>
                       </Td>
                       <Td fontSize={14} color={"black"}>
                         <p>{el.type}</p>
                       </Td>
                       <Td>
                         <Button
-                          onClick={() => deleteRequest(el._id)}
+                          onClick={() => {if(window.confirm('Delete the item?'))deleteRequest(el._id)}}
                           color={"white"}
                           colorScheme="red"
                         >
                           Delete
                         </Button>
+                       
                       </Td>
                     </Tr>
                   );
