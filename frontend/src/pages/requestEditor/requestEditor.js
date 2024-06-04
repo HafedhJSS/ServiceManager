@@ -3,6 +3,21 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import useRedirectLoggedOutUser from "../../customHook/useRedirectLoggedOutUser";
 import { selectIsLoggedIn } from "../../redux/features/auth/authSlice";
+import {
+  Button,
+  Select,
+  Switch,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Tfoot,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
+import ReactPaginate from "react-paginate";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function RequestEditor() {
@@ -10,7 +25,7 @@ function RequestEditor() {
   const dispatch = useDispatch();
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const [requests, setRequests] = useState(null);
+  const [requests, setRequests] = useState([]);
 
   useEffect(() => {
     fetchRequests();
@@ -22,6 +37,7 @@ function RequestEditor() {
   };
 
   const deleteRequest = async (_id) => {
+    console.log(_id);
     await axios.delete(`http://localhost:5000/request/${_id}`);
     setRequests((prevRequests) =>
       prevRequests.filter((request) => request._id !== _id)
@@ -41,49 +57,142 @@ function RequestEditor() {
     );
   };
 
+  //   Begin Pagination
+  const [currentItems, setCurrentItems] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 10;
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+
+    setCurrentItems(requests.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(requests.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, requests]);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % requests.length;
+    setItemOffset(newOffset);
+  };
+  //   End Pagination
+
   return (
-    <div>
-      <div>
-        <h2>All Requests:</h2>
-        <table >
-          <thead>
-            <tr>
-              <th>userID</th>
-              <th>Status</th>
-              <th>Creation Date</th>
-              <th>Type</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {requests &&
-              requests.map((request) => (
-                <tr key={request._id}>
-                  <td>{request.userId}</td>
-                  <td>
-                    <select
-                      value={request.status}
-                      onChange={(e) => updateRequestStatus(e, request._id)}
-                    >
-                      <option value="notChecked">Not Checked</option>
-                      <option value="accepted">Accepted</option>
-                      <option value="workInProgress">Work in Progress</option>
-                      <option value="validated">Validated</option>
-                    </select>
-                  </td>
-                  <td>{request.creationDate.substring(0, 10)}</td>
-                  <td>{request.type}</td>
-                  <td>
-                    <button
-                      className="btn btn-danger"  
-                      onClick={() => {if(window.confirm('Delete the item?'))deleteRequest(request._id)}}>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+    <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
+      <div className="w-50 bg-white rounded p-3">
+        <h2>Requests:</h2>
+        <TableContainer>
+          <Table variant="striped" colorScheme="teal">
+            <TableCaption>ORDERS</TableCaption>
+            <Thead>
+              <Tr>
+                <Th>User Name</Th>
+                <Th>Email</Th>
+                <Th>Status</Th>
+                <Th> Creation Date</Th>
+                <Th>Type</Th>
+                <Th>Action</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {currentItems.length > 0 &&
+                currentItems.map((el) => {
+                  return (
+                    <Tr>
+                      <Td color={"black"} fontSize={14}>
+                        <p> {el.userId ? el.userId.name : "test" + el._id}</p>
+                      </Td>
+                      <Td color={"black"} fontSize={14}>
+                        <p> {el.userId ? el.userId.email : "test 1"}</p>
+                      </Td>
+                      <Td>
+                        <Select
+                          onChange={(e) => updateRequestStatus(e, el._id)}
+                          fontSize={14}
+                          color={"black"}
+                          placeholder="Select option"
+                        >
+                          <option
+                            selected={el.status === "notChecked"}
+                            value="notChecked"
+                          >
+                            Pending
+                          </option>
+                          <option
+                            selected={el.status === "accepted"}
+                            value="accepted"
+                          >
+                            Accepted
+                          </option>
+                          <option
+                            selected={el.status === "workInProgress"}
+                            value="workInProgress"
+                          >
+                            Work in Progress
+                          </option>
+                          <option
+                            selected={el.status === "validated"}
+                            value="validated"
+                          >
+                            Validated
+                          </option>
+                        </Select>
+                      </Td>
+                      <Td fontSize={14} color={"black"} isNumeric>
+                        <p> {el.creationDate}</p>
+                      </Td>
+                      <Td fontSize={14} color={"black"}>
+                        <p>{el.type}</p>
+                      </Td>
+                      <Td>
+                        <Button
+                          onClick={() => deleteRequest(el._id)}
+                          color={"white"}
+                          colorScheme="red"
+                        >
+                          Delete
+                        </Button>
+                      </Td>
+                    </Tr>
+                  );
+                })}
+            </Tbody>
+            <Tfoot>
+              <Tr>
+                <Th></Th>
+                <Th></Th>
+                <Th isNumeric></Th>
+              </Tr>
+            </Tfoot>
+          </Table>
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel="Next"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={3}
+            pageCount={pageCount}
+            previousLabel="Prev"
+            renderOnZeroPageCount={null}
+            containerClassName="pagination"
+            pageLinkClassName="page-num"
+            previousLinkClassName="page-num"
+            nextLinkClassName="page-num"
+            activeLinkClassName="activePage"
+          />
+          {/* <ReactPaginate
+          breakLabel="..."
+          nextLabel="Next"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          pageCount={pageCount}
+          previousLabel="Prev"
+          renderOnZeroPageCount={null}
+          containerClassName="pagination"
+          pageLinkClassName="page-num"
+          previousLinkClassName="page-num"
+          nextLinkClassName="page-num"
+          activeLinkClassName="activePage"
+        /> */}
+        </TableContainer>
       </div>
     </div>
   );

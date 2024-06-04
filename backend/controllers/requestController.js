@@ -25,6 +25,7 @@ const fetchRequestsVm = async(req,res) => {
 const fetchRequestsAp = async(req,res) => {
     //find the requests
     const requests = await Request.find({ type: "AccessPoint" }).sort({ creationDate: -1 });
+    const requests = await Request.find().sort('creationDate').populate("userId");
     // repond with them
     res.json({requests});
 }

@@ -71,7 +71,6 @@ const EditProfile = () => {
           { method: "post", body: image }
         );
         const imgData = await response.json();
-        console.log(imgData);
         imageURL = imgData.url.toString();
 
         // Save Profile
@@ -83,7 +82,6 @@ const EditProfile = () => {
         };
 
         const data = await updateUser(formData);
-        console.log(data);
         toast.success("User updated");
         navigate("/profile");
         setIsLoading(false);

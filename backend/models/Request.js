@@ -5,9 +5,9 @@ const bcrypt = require("bcryptjs");
 
 const requestSchema = mongoose.Schema({
     userId: {
-      type: String,
+      type: mongoose.Types.ObjectId,
       required: true,
-      ref: "user",
+      ref: "User",
     },
     creationDate: {
       type: Date,

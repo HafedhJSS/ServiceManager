@@ -25,6 +25,7 @@ import RequestEditorVpn from "./pages/requestEditor/vpn";
 import RequestEditorVm from "./pages/requestEditor/vm";
 import RequestEditorAp from "./pages/requestEditor/ap";
 
+import CreateUser from "./components/CreateUser/CreateUser";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -108,6 +109,36 @@ function App() {
             </Sidebar>
           }
         />
+                <Route
+          path="/requestEditor/vpn"
+          element={
+            <Sidebar>
+              <Layout>
+                <RequestEditorVpn />
+              </Layout>
+            </Sidebar>
+          }
+        />
+                <Route
+          path="/requestEditor/vm"
+          element={
+            <Sidebar>
+              <Layout>
+                <RequestEditorVm />
+              </Layout>
+            </Sidebar>
+          }
+        />
+                <Route
+          path="/requestEditor/ap"
+          element={
+            <Sidebar>
+              <Layout>
+                <RequestEditorAp />
+              </Layout>
+            </Sidebar>
+          }
+        />
         <Route
           path="/profile"
           element={
@@ -144,6 +175,16 @@ function App() {
             <Sidebar>
               <Layout>
                 <Users />
+              </Layout>
+            </Sidebar>
+          }
+        />
+        <Route
+          path="/users/createUser"
+          element={
+            <Sidebar>
+              <Layout>
+                <CreateUser />
               </Layout>
             </Sidebar>
           }

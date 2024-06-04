@@ -55,7 +55,7 @@ const Register = () => {
       // console.log(data);
       await dispatch(SET_LOGIN(true));
       await dispatch(SET_NAME({ name: data.name, role: data.role }));
-      navigate("/dashboard");
+      navigate("/login");
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
